@@ -1,0 +1,53 @@
+<form nz-form [formGroup]="registro" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Nombres</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="nombres" placeholder="Ingrese el nombre" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">El nombre es requerido!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Apellidos</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="apellidoErrorTpl">
+          <input nz-input formControlName="apellidos" placeholder="Ingrese el apellido"  maxlength="10"/>
+          <ng-template #apellidoErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required') && registro.controls.apellidos.touched">El apellido es requerido!</ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">Minimo {{control.errors.minlength.requiredLength}} caracteres</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>E-mail</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
+        <input nz-input formControlName="email" placeholder="ingrese su email" type="email" />
+        <ng-template #emailErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('pattern')">No es un formato correcto de email!</ng-container>
+          <ng-container *ngIf="control.hasError('required')">El E-mail es requerido!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Imagen</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback>
+          <input nz-input formControlName="imagen" placeholder="Ingrese una URL de una imagen" />
+        </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Telefonos</nz-form-label>
+      <nz-form-control [nzSpan]="12" formArrayName="telefonos">
+          <div *ngFor="let item of telefonos.controls;let i = index">
+        <input  nz-input type="number" [formControlName]="i" placeholder="Ingrese el telefono" />
+        <button nz-button (click)="eliminarTelefenos(i)">-</button>
+        </div>
+        <a nz-button nzType="primary" (click)="addNumerosTelefonicos()">+</a>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary" type="submit" [disabled]="!registro.valid">Submit</button>
+        <button nz-button (click)="resetForm()">Reset</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>

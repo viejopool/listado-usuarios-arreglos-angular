@@ -1,0 +1,26 @@
+<nz-list nzGrid>
+    <div nz-row [nzGutter]="16">
+      <div nz-col [nzXXl]="8" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24" *ngFor="let item of usuarios">
+        <nz-list-item>
+            <nz-card nzHoverable style="width:100%" [nzCover]="coverTemplate">
+                <nz-card-meta [nzTitle]="item.nombres " [nzDescription]="item.email"></nz-card-meta>
+                
+                <h3 [ngStyle]="{ margin: '16px 0' }">Teléfonos</h3>
+                <nz-list nzBordered nzSize="small">
+                  <!-- <nz-list-header>Header</nz-list-header> -->
+                  <nz-list-item *ngFor="let telefonos of item.telefonos">{{telefonos}}</nz-list-item>
+                  <!-- <nz-list-footer>Footer</nz-list-footer> -->
+                </nz-list>
+            
+
+
+              </nz-card>
+              <ng-template #coverTemplate>
+                <img [src]="item.imagen" />
+              </ng-template>
+        </nz-list-item>
+      </div>
+    </div>
+  </nz-list>
+
+  
